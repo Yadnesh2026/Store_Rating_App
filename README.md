@@ -1,62 +1,214 @@
-# Store Rating Web Application
+# Store Rating App
 
-Full-stack intern coding challenge implementation using:
+A full-stack web application built for the FullStack Intern Coding Challenge. The platform allows users to rate registered stores from 1 to 5 and provides role-based dashboards for administrators, normal users, and store owners.
 
-- Backend: Express.js
+## Live Demo
+
+```text
+https://store-rating-app-swart.vercel.app/
+```
+
+## Repository
+
+```text
+https://github.com/Yadnesh2026/Store_Rating_App
+```
+
+## Tech Stack
+
+- Frontend: React.js, Vite, CSS
+- Backend: Node.js, Express.js
 - Database: MySQL
-- Frontend: React.js with Vite
+- Authentication: JWT, bcryptjs
+- Validation: Zod
 
 ## Features
 
-- Single login system for System Administrator, Normal User, and Store Owner roles.
-- Normal user signup, login, password update, store search, submit/modify ratings.
-- Admin dashboard counts users, stores, and ratings.
-- Admin can add users, admins, store owners, and stores.
-- Admin can list/filter/sort users and stores.
-- Store owner dashboard shows average rating and users who rated their store.
-- Form validations match the assignment requirements.
+### Common
 
-## Setup
+- Single login system for all roles
+- Role-based dashboard after login
+- Secure password hashing
+- JWT-based protected API routes
+- Logout functionality
 
-1. Create a MySQL database and import the schema:
+### System Administrator
+
+- View dashboard statistics:
+  - Total users
+  - Total stores
+  - Total ratings
+- Add new users with role selection
+- Add new stores
+- View user list with name, email, address, and role
+- View store list with name, email, address, and rating
+- Filter users and stores by key fields
+- Sort listings by fields such as name, email, address, role, and rating
+
+### Normal User
+
+- Sign up and log in
+- Update password
+- View all registered stores
+- Search stores by name or address
+- Submit a rating from 1 to 5
+- Modify previously submitted rating
+- View overall rating and own submitted rating
+
+### Store Owner
+
+- Log in
+- Update password
+- View average rating for assigned store
+- View users who submitted ratings for the store
+
+## Form Validations
+
+- Name: minimum 20 characters and maximum 60 characters
+- Address: maximum 400 characters
+- Password: 8 to 16 characters, at least one uppercase letter and one special character
+- Email: standard email format validation
+- Rating: number between 1 and 5
+
+## Project Structure
+
+```text
+Store_Rating_App/
++-- client/              # React + Vite frontend
++-- server/              # Express backend API
++-- database/            # MySQL schema and seed files
++-- package.json         # Root scripts
++-- README.md
+```
+
+## Local Setup
+
+### 1. Clone the repository
+
+```bash
+git clone https://github.com/Yadnesh2026/Store_Rating_App.git
+cd Store_Rating_App
+```
+
+### 2. Create the MySQL database
+
+Open MySQL and run:
 
 ```sql
 SOURCE database/schema.sql;
 SOURCE database/seed.sql;
 ```
 
-2. Configure backend environment:
+### 3. Configure environment variables
+
+Create a `.env` file inside the `server` folder:
 
 ```bash
 cp server/.env.example server/.env
 ```
 
-Edit `server/.env` with your MySQL username/password.
+Update the values:
 
-3. Install dependencies:
+```env
+PORT=5000
+CLIENT_ORIGIN=http://localhost:5173
+JWT_SECRET=your-long-random-secret
+DB_HOST=localhost
+DB_PORT=3306
+DB_USER=root
+DB_PASSWORD=your-mysql-password
+DB_NAME=store_rating_app
+```
+
+### 4. Install dependencies
 
 ```bash
 npm run install:all
 ```
 
-4. Run the app:
+### 5. Run the application
 
 ```bash
 npm run dev
 ```
 
-- Frontend: http://localhost:5173
-- Backend: http://localhost:5000
+Frontend:
 
-## Seed Logins
+```text
+http://localhost:5173
+```
 
-All seeded users use this password:
+Backend:
+
+```text
+http://localhost:5000
+```
+
+## Seed Login Credentials
+
+All seeded accounts use the same password:
 
 ```text
 Password@123
 ```
 
-- Admin: `admin@storerating.test`
-- Normal User: `user@storerating.test`
-- Store Owner: `owner@storerating.test`
+| Role | Email |
+| --- | --- |
+| Admin | admin@storerating.test |
+| Normal User | user@storerating.test |
+| Store Owner | owner@storerating.test |
 
+## Deployment
+
+The frontend can be deployed on Vercel as a Vite app.
+
+Frontend settings:
+
+```text
+Root Directory: client
+Framework Preset: Vite
+Build Command: npm run build
+Output Directory: dist
+Install Command: npm install
+```
+
+Frontend environment variable:
+
+```env
+VITE_API_URL=https://your-backend-url.vercel.app/api
+```
+
+Backend settings:
+
+```text
+Root Directory: server
+Framework Preset: Other
+Start Command: npm start
+```
+
+Backend environment variables:
+
+```env
+PORT=5000
+CLIENT_ORIGIN=https://your-frontend-url.vercel.app
+JWT_SECRET=your-long-random-secret
+DB_HOST=your-mysql-host
+DB_PORT=3306
+DB_USER=your-mysql-user
+DB_PASSWORD=your-mysql-password
+DB_NAME=store_rating_app
+```
+
+Note: Vercel does not host MySQL directly. Use a hosted MySQL provider and import `database/schema.sql` followed by `database/seed.sql`.
+
+## Build
+
+To build the frontend:
+
+```bash
+npm run build
+```
+
+## Author
+
+Yadnesh Vidulkar
